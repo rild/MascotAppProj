@@ -110,5 +110,25 @@ public class BitmapView extends View {
     }
 
 
+    //bitmapのサイズを元にサブサンプルにサイズを決める
+    //サブサンプル？？　2015.06.27
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+
+        // 画像の元サイズ
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            if (width > height) {
+                inSampleSize = Math.round((float)height / (float)reqHeight);
+            } else {
+                inSampleSize = Math.round((float)width / (float)reqWidth);
+            }
+        }
+        return inSampleSize;
+    }
+
+
 
 }

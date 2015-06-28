@@ -73,14 +73,17 @@ public class BitmapView extends View {
 
         options.inJustDecodeBounds = true;
 
-        BitmapFactory.decodeResource(resources,R.drawable.pose0body0,options);
 
         int[][] image = new int[3][2];
         String[] imageType = new String[3];
 
+        BitmapFactory.decodeResource(resources,R.drawable.pose0body0,options);
+
         image[0][0] = options.outHeight;
         image[0][1] = options.outWidth;
         imageType[0] = options.outMimeType;
+
+        bitmap[0] = decodeSampledBitmapFromResource(resources,R.drawable.pose0body0,image[0][0],image[0][1]);
 
         BitmapFactory.decodeResource(resources,R.drawable.pose0eye0,options);
 
@@ -88,11 +91,16 @@ public class BitmapView extends View {
         image[1][1] = options.outWidth;
         imageType[1] = options.outMimeType;
 
+        bitmap[1] = decodeSampledBitmapFromResource(resources,R.drawable.pose0body0,image[1][0],image[1][1]);
+        //java.lang.OutOfMemoryError 2015.06.28
+
         BitmapFactory.decodeResource(resources,R.drawable.pose0mouth0,options);
 
         image[2][0] = options.outHeight;
         image[2][1] = options.outWidth;
         imageType[2] = options.outMimeType;
+
+        bitmap[2] = decodeSampledBitmapFromResource(resources,R.drawable.pose0body0,image[2][0],image[2][1]);
 
 
     }
@@ -127,6 +135,38 @@ public class BitmapView extends View {
             }
         }
         return inSampleSize;
+    }
+
+//    public static Bitmap decodeSampledBitmapFromFile(String filePath, int reqWidth, int reqHeight) {
+//
+//        // inJustDecodeBounds=true で画像のサイズをチェック
+//        final BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        BitmapFactory.decodeFile(filePath, options);
+//
+//        // inSampleSize を計算
+//        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+//
+//        // inSampleSize をセットしてデコード
+//        options.inJustDecodeBounds = false;
+//        return BitmapFactory.decodeFile(filePath, options);
+//    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources resources,int res, int reqWidth, int reqHeight) {
+
+        // inJustDecodeBounds=true で画像のサイズをチェック
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(resources, res, options);
+
+        // inSampleSize を計算
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // inSampleSize をセットしてデコード
+        options.inJustDecodeBounds = false;
+        //これはなんだろう
+        //2015.06.28
+        return BitmapFactory.decodeResource(resources, res, options);
     }
 
 

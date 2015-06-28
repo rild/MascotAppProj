@@ -12,6 +12,7 @@ public class Bitmap2Activity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new BitmapView(this));
+        //BitmapViewの読み込みがうまくいっていない 2015.06.28
     }
 
 

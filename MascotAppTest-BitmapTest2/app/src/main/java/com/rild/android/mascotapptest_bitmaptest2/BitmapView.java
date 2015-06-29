@@ -110,10 +110,10 @@ public class BitmapView extends View {
         canvas.drawColor(Color.WHITE);
         Paint paint = new Paint();
 
-//        for(int i = 0; i < bitmap.length; i++){
-//            canvas.drawBitmap(bitmap[i],
-//                    (canvas.getWidth() - bitmap[i].getWidth())/2,0,paint);
-//        }
+        for(int i = 0; i < bitmap.length; i++){
+            canvas.drawBitmap(bitmap[i],
+                    (canvas.getWidth() - bitmap[i].getWidth())/2,0,paint);
+        }
 
     }
 
